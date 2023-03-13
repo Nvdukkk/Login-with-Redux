@@ -1,23 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { legacy_createStore as createStore, combineReducers, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import isLoggedInReducer from "./reducers/isLoggedInReducer";
-
-const rootReducer = combineReducers({
-  isLoggedIn: isLoggedInReducer,
-});
-const store = createStore(rootReducer, applyMiddleware(thunk));
+import store from "./reduxStore";
+import Login from "./Login";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <Login />
     </Provider>
   </React.StrictMode>
 );

@@ -8,6 +8,8 @@ const Login = () => {
   const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
 
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  //hook useSelector để access thẳng vào store
+
   const dispatch = useDispatch();
 
   const handleLogin = (e) => {
@@ -41,6 +43,7 @@ const Login = () => {
       {isLoggedIn === false && hasAttemptedLogin && (
         <p>Đăng nhập thất bại. Vui lòng thử lại.</p>
       )}
+      {isLoggedIn === true && <p>Đăng nhập thành công</p>}
     </div>
   );
 };

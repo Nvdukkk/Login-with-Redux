@@ -2,7 +2,7 @@ import { LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/types";
 
 const initialState = false;
 
-const isLoggedInReducer = (state = initialState, action) => {
+export const isLoggedInReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return true;
@@ -13,4 +13,4 @@ const isLoggedInReducer = (state = initialState, action) => {
   }
 };
 
-export default isLoggedInReducer;
+
