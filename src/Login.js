@@ -43,7 +43,7 @@ const Login = () => {
       {isLoggedIn === false && hasAttemptedLogin && (
         <p>Đăng nhập thất bại. Vui lòng thử lại.</p>
       )}
-      {isLoggedIn === true && <p>Đăng nhập thành công</p>}
+      {isLoggedIn === true && localStorage.setItem("isLogin", 1)}
     </div>
   );
 };
