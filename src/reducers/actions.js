@@ -1,5 +1,5 @@
 import { LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from "../actions/types";
-import { ACCOUNT_MANAGEMENT } from "../useraccount/account";
+// import { ACCOUNT_MANAGEMENT } from "../useraccount/account";
 
 export const login = (username, password) => {
   // ACCOUNT_MANAGEMENT.map(({ user, pass }) => {
