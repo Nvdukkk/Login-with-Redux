@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./reducers/actions";
+// import { login } from "./reducers/actions";
+import { loginSuccess, loginFailure } from "./reducers/isLoggedInSlice";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +15,11 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(login(username, password));
+    if (username === "admin" && password === "password") {
+      dispatch(loginSuccess());
+    } else {
+      dispatch(loginFailure());
+    }
     setHasAttemptedLogin(true);
   };
 
@@ -43,7 +48,6 @@ const Login = () => {
       {isLoggedIn === false && hasAttemptedLogin && (
         <p>Đăng nhập thất bại. Vui lòng thử lại.</p>
       )}
-      {isLoggedIn === true && localStorage.setItem("isLogin", 1)}
     </div>
   );
 };
