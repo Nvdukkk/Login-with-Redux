@@ -5,12 +5,12 @@ import Login from "./Login";
 import { logout } from "./reducers/isLoggedInSlice";
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
+  const isLoggedIn = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+  
+   const handleLogout = () => {
+     dispatch(logout())
+   }
   return (
     <div>
       {isLoggedIn ? (

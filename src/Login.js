@@ -8,14 +8,14 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
 
-  const isLoggedIn = useSelector((state) => state.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user);
   //hook useSelector để access thẳng vào store
 
   const dispatch = useDispatch();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (username === "admin" && password === "password") {
+    if (username === "1" && password === "1") {
       dispatch(loginSuccess());
     } else {
       dispatch(loginFailure());
