@@ -1,22 +1,17 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Login from "./Login";
-// import { logout } from "./reducers/actions";
-import { logout } from "./reducers/isLoggedInSlice";
-
+ import { useSelector } from "react-redux";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard"
+// import Cookies from "js-cookie";
 function App() {
-  const isLoggedIn = useSelector((state) => state.user);
-  const dispatch = useDispatch()
   
-   const handleLogout = () => {
-     dispatch(logout())
-   }
+// const isLoggedIn = Cookies.get("isLoggedIn")
+  const isLoggedIn = useSelector((state) => state.user);
   return (
     <div>
       {isLoggedIn ? (
         <div>
-          <p>Bạn đã đăng nhập thành công!</p>
-          <button onClick={handleLogout}>Logout</button>
+          <Dashboard />
         </div>
       ) : (
         <div>

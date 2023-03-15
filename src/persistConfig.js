@@ -5,6 +5,7 @@ import { isLoggedInSlice } from "./reducers/isLoggedInSlice";
 export const persistConfig = {
   key: "root",
   storage: storage,
+  whitelist: ['isLoggedIn'],
 };
 
 const persistedReducer = persistReducer(persistConfig, isLoggedInSlice);

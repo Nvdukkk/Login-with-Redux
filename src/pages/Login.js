@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { login } from "./reducers/actions";
-import { loginSuccess, loginFailure } from "./reducers/isLoggedInSlice";
-
+import { loginSuccess, loginFailure } from "../reducers/isLoggedInSlice";
+// import Cookies from "js-cookie";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,16 +9,19 @@ const Login = () => {
 
   const isLoggedIn = useSelector((state) => state.user);
   //hook useSelector để access thẳng vào store
+  // const isLoggedIn = Cookies.get("isLoggedIn");
+
 
   const dispatch = useDispatch();
 
   const handleLogin = (e) => {
     e.preventDefault();
     if (username === "1" && password === "1") {
+      // Cookies.set('isLoggedIn', 'true', { expires: 1/1440 });
       dispatch(loginSuccess());
     } else {
       dispatch(loginFailure());
-    }
+     }
     setHasAttemptedLogin(true);
   };
 
