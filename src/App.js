@@ -1,25 +1,27 @@
-import React from "react";
- import { useSelector } from "react-redux";
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard"
-// import Cookies from "js-cookie";
+import React, { useEffect } from "react";
+
+import { AppRoutes } from "./routes";
+import {  useLocation, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+
 function App() {
-  
-// const isLoggedIn = Cookies.get("isLoggedIn")
-  const isLoggedIn = useSelector((state) => state.user);
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate()
+  const isLoggedIn = Cookies.get("isLoggedIn");
+  useEffect(() => {
+    if (!isLoggedIn) {
+      if (pathname !== "/Login") {
+        navigate("/Login")
+      }
+    }
+  },[isLoggedIn, navigate, pathname])
+
   return (
     <div>
-      {isLoggedIn ? (
-        <div>
-          <Dashboard />
-        </div>
-      ) : (
-        <div>
-          <Login />
-        </div>
-      )}
+      <AppRoutes />
     </div>
-  );
+  )
 }
 
 export default App;

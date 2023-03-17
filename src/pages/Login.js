@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess, loginFailure } from "../reducers/isLoggedInSlice";
-// import Cookies from "js-cookie";
+
+import Cookies from "js-cookie";
+import { handleLogin } from "../api/handleLogin";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
+  const [data, setData] = useState(null);
+  const navigate = useNavigate();
 
-  const isLoggedIn = useSelector((state) => state.user);
-  //hook useSelector để access thẳng vào store
-  // const isLoggedIn = Cookies.get("isLoggedIn");
-
-
-  const dispatch = useDispatch();
-
-  const handleLogin = (e) => {
+  const handleLoginFormSubmit = async (e) => {
     e.preventDefault();
-    if (username === "1" && password === "1") {
-      // Cookies.set('isLoggedIn', 'true', { expires: 1/1440 });
-      dispatch(loginSuccess());
+    const apiData = await handleLogin(username, password);
+    setData(apiData);
+
+    if (apiData.status === 200) {
+      Cookies.set("isLoggedIn", true, { expires: 1 / 40 });
+      Cookies.set("token", apiData.data, { expires: 1 / 40 });
+      navigate("/Dashboard");
     } else {
-      dispatch(loginFailure());
-     }
-    setHasAttemptedLogin(true);
+      setHasAttemptedLogin(true);
+    }
   };
 
   return (
@@ -46,10 +46,8 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleLogin}>Đăng nhập</button>
-      {isLoggedIn === false && hasAttemptedLogin && (
-        <p>Đăng nhập thất bại. Vui lòng thử lại.</p>
-      )}
+      <button onClick={handleLoginFormSubmit}>Đăng nhập</button>
+      {hasAttemptedLogin && <p>{data.message}</p>}
     </div>
   );
 };

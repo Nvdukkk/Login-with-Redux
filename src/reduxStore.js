@@ -1,14 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import userSlice from "./reducers/isLoggedInSlice";
-import persistReducer from "redux-persist/es/persistReducer";
-import { persistConfig } from "./persistConfig";
+import userInfoSlice from "./reducers/userInfo";
 import { legacy_createStore as createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-const rootReducer = combineReducers({ user: userSlice });
+const rootReducer = combineReducers({ user: userInfoSlice });
 
-const pReducer = persistReducer(persistConfig, rootReducer);
-
-const store = createStore(pReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 export default store;
