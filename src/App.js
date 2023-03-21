@@ -14,7 +14,7 @@ function App() {
         navigate("/Login");
       }
     }
-  }, [Cookies]);
+  }, [isLoggedIn]);
 
   return (
     <div>
