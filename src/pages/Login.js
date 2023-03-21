@@ -16,9 +16,11 @@ const Login = () => {
 
   return (
     <div>
+      <h1>Đăng nhập</h1>
+
       <LoginForm />
 
-      {user && <p>{user?.message}</p>}
+      <p>{user?.message}</p>
     </div>
   );
 };

@@ -13,7 +13,8 @@ function LoginForm() {
   const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
 
-  const loginFormSubmit = (data) => {
+    const loginFormSubmit = (data) => {
+      if(!data) { return }
     const { username, password } = data;
     dispatch(userIsLoging({ username, password }));
   };
@@ -25,7 +26,6 @@ function LoginForm() {
   };
   return (
       <div>
-      <h1>Đăng nhập</h1>
       <form onSubmit={handleSubmit(loginFormSubmit)}>
         <div>
           <input
