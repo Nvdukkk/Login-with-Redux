@@ -1,29 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import Cookies from "js-cookie";
-import { handleLogin } from "../api/handleLogin";
 import { useNavigate } from "react-router-dom";
-
+import { userIsLoging } from "../reducers/loginReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { selectLoading, selectUser } from "../reducers/userSlice";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [hasAttemptedLogin, setHasAttemptedLogin] = useState(false);
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
-
-  const handleLoginFormSubmit = async (e) => {
+  const handleLoginFormSubmit = (e) => {
     e.preventDefault();
-    const apiData = await handleLogin(username, password);
-    setData(apiData);
-
-    if (apiData.status === 200) {
-      Cookies.set("isLoggedIn", true, { expires: 1 / 40 });
-      Cookies.set("token", apiData.data, { expires: 1 / 40 });
-      navigate("/Dashboard");
-    } else {
-      setHasAttemptedLogin(true);
-    }
+    dispatch(userIsLoging({ username, password }));
   };
+  useEffect(() => {
+    if (user?.status === 200) {
+      navigate("/Dashboard");
+    }
+  });
 
   return (
     <div>
@@ -46,8 +42,11 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleLoginFormSubmit}>Đăng nhập</button>
-      {hasAttemptedLogin && <p>{data.message}</p>}
+      <button onClick={handleLoginFormSubmit} disabled={isLoading}>
+        Đăng nhập
+      </button>
+      {isLoading && <p>Loading..</p>}
+      {user && <p>{user?.message}</p>}
     </div>
   );
 };
